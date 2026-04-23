@@ -1,0 +1,33 @@
+embedder:
+  provider: fastembed
+  model: BAAI/bge-small-en-v1.5
+  dim: 384
+
+chunker:
+  strategy: recursive
+  size: 800
+  overlap: 80
+
+vector_store:
+  backend: pgvector
+  table: doc_chunks
+  distance: cosine
+  dim: 384
+
+retriever:
+  top_k_vector: 20
+  top_k_bm25: 20
+  top_k_rerank: 5
+  use_rerank: true
+
+llm:
+  provider: ollama
+  model: llama3.2
+
+eval:
+  golden_set_path: configs/golden_set.yaml
+  thresholds:
+    context_precision_min: 0.6
+    context_recall_min: 0.7
+    faithfulness_min: 0.8
+    answer_relevance_min: 0.4

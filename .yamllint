@@ -1,0 +1,16 @@
+extends: default
+
+rules:
+  line-length:
+    max: 180
+    level: warning
+  truthy:
+    allowed-values: ["true", "false", "on", "off", "yes", "no"]
+    check-keys: false
+  document-start: disable
+
+ignore: |
+  .venv/
+  build/
+  dist/
+  .github/

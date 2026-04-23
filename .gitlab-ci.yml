@@ -1,0 +1,27 @@
+image: python:3.11-slim
+
+stages:
+  - lint
+  - test
+
+variables:
+  PIP_CACHE_DIR: $CI_PROJECT_DIR/.pip-cache
+
+cache:
+  paths:
+    - .pip-cache/
+
+lint:
+  stage: lint
+  script:
+    - pip install ruff==0.4.4 black==24.4.2 yamllint==1.35.1 PyYAML==6.0.1
+    - ruff check .
+    - black --check .
+    - yamllint .
+
+tests:
+  stage: test
+  needs: [lint]
+  script:
+    - pip install -r requirements-dev.txt
+    - pytest tests/unit -v

@@ -1,0 +1,22 @@
+version: 1.0
+dataset: product-docs-golden
+cases:
+  - question: "What retention policy applies to raw bronze data?"
+    ground_truth: "Raw bronze data is retained for 90 days then expired by S3 lifecycle."
+    must_contain_sources:
+      - data/samples/retention_policy.md
+
+  - question: "Which vector stores does the platform support?"
+    ground_truth: "pgvector, Qdrant, LanceDB, and an in-memory backend for tests."
+    must_contain_sources:
+      - data/samples/platform_overview.md
+
+  - question: "How does hybrid retrieval combine results?"
+    ground_truth: "BM25 and vector results are fused with Reciprocal Rank Fusion, then cross-encoder reranked."
+    must_contain_sources:
+      - data/samples/platform_overview.md
+
+  - question: "What happens when embedding model is upgraded?"
+    ground_truth: "The reembed DAG re-runs all chunks through the new model and swaps the collection alias."
+    must_contain_sources:
+      - data/samples/operations.md
